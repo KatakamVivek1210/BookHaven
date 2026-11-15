@@ -1,0 +1,56 @@
+============================================================
+       Git Commands Used in the BookHaven Project
+============================================================
+
+1. git init
+   - Initializes a new Git repository in the current directory.
+   - Creates a hidden .git folder to track version history.
+
+2. git config user.name "KatakamVivek1210" & git config user.email "katakamvivek1@gmail.com"
+   - Configures the author identity (name and email) used for Git commits.
+
+3. git branch -M main
+   - Renames current working branch to "main" (modern standard convention).
+
+4. git add <file>
+   - Stages specified file(s) into the staging area for the next commit.
+   - Example: git add index.html about.html
+
+5. git commit -m "message"
+   - Records staged snapshot changes into repository history with a description.
+   - Example: git commit -m "Initial commit: add index.html and about.html"
+
+6. git checkout -b feature
+   - Creates a new branch named "feature" and immediately switches to it.
+
+7. git checkout main
+   - Switches the working directory and HEAD pointer back to the "main" branch.
+
+8. git merge feature
+   - Merges commits from "feature" branch into the currently active branch (main).
+
+9. git log --oneline --graph --all
+   - Renders a compact, text-based visual graph of branch history and commit topology.
+
+10. git status
+    - Displays working directory status, staged files, modified files, and untracked files.
+
+11. git revert HEAD --no-edit
+    - Safely creates an inverse commit to undo the previous commit without rewriting history.
+
+12. git remote add origin <url>
+    - Links the local Git repository to a remote repository hosted on GitHub.
+
+13. git push -u origin main
+    - Uploads local commits to the remote GitHub repository with upstream tracking.
+
+14. git push origin feature
+    - Uploads the feature branch to the remote repository for tracking and pull requests.
+
+============================================================
+       Additional Rules & Concepts
+============================================================
+.gitignore
+   - Tells Git which patterns to exclude from version tracking:
+     * *.log   (excludes debug and execution logs)
+     * temp/   (excludes the temporary directory and all files inside it)
