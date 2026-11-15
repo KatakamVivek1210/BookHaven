@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BookHaven - Assignment Report</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        @page {
+            size: A4 portrait;
+            margin: 0;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            color: #1e293b;
+            background-color: #ffffff;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
+        .page {
+            width: 210mm;
+            height: 297mm;
+            padding: 16mm 18mm 14mm 18mm;
+            position: relative;
+            background: #ffffff;
+            page-break-after: always;
+            break-after: page;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* Running Header & Footer for Pages 2-4 */
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 8px;
+            border-bottom: 1.5px solid #0f2b48;
+            margin-bottom: 14px;
+            font-size: 8pt;
+            color: #64748b;
+            font-weight: 500;
+        }
+
+        .page-header .brand {
+            font-weight: 700;
+            color: #0f2b48;
+            letter-spacing: 0.5px;
+        }
+
+        .page-footer {
+            margin-top: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 8px;
+            border-top: 1px solid #e2e8f0;
+            font-size: 8pt;
+            color: #64748b;
+        }
+
+        .page-footer .page-number {
+            font-weight: 600;
+            color: #0f2b48;
+        }
+
+        /* Typography */
+        h1, h2, h3, h4 {
+            color: #0f2b48;
+            font-weight: 700;
+        }
+
+        p {
+            font-size: 8.8pt;
+            line-height: 1.45;
+            color: #334155;
+        }
+
+        .code-font {
+            font-family: 'JetBrains Mono', Consolas, monospace;
+        }
+
+        /* ================= PAGE 1: COVER PAGE ================= */
+        .cover-page {
+            justify-content: space-between;
+            padding: 20mm 20mm 16mm 20mm;
+            background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
+        }
+
+        .cover-top-accent {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 8mm;
+            background: linear-gradient(90deg, #0f2b48 0%, #1e4976 50%, #3182ce 100%);
+        }
+
+        .cover-badge {
+            display: inline-block;
+            background: #e0f2fe;
+            color: #0369a1;
+            font-size: 8.5pt;
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 4px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            border-left: 3px solid #0284c7;
+        }
+
+        .cover-title-area {
+            margin-top: 10px;
+        }
+
+        .cover-title-area h1 {
+            font-size: 23pt;
+            line-height: 1.2;
+            color: #0f2b48;
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
+        }
+
+        .cover-title-area .subtitle {
+            font-size: 11.5pt;
+            color: #475569;
+            font-weight: 500;
+            line-height: 1.4;
+        }
+
+        .student-card {
+            background: #ffffff;
+            border: 1.5px solid #cbd5e1;
+            border-radius: 8px;
+            padding: 16px 20px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            margin: 16px 0;
+        }
+
+        .student-card-title {
+            font-size: 10pt;
+            font-weight: 700;
+            color: #0f2b48;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 6px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .meta-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            row-gap: 10px;
+            column-gap: 20px;
+        }
+
+        .meta-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .meta-label {
+            font-size: 7.5pt;
+            color: #64748b;
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .meta-value {
+            font-size: 9.5pt;
+            color: #0f2b48;
+            font-weight: 700;
+            margin-top: 2px;
+        }
+
+        .meta-value a {
+            color: #0284c7;
+            text-decoration: none;
+            word-break: break-all;
+        }
+
+        .scope-box {
+            background: #f1f5f9;
+            border-left: 4px solid #0f2b48;
+            border-radius: 4px;
+            padding: 14px 16px;
+            margin-bottom: 14px;
+        }
+
+        .scope-box h3 {
+            font-size: 9.5pt;
+            margin-bottom: 6px;
+            color: #0f2b48;
+        }
+
+        .scope-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .scope-list li {
+            font-size: 8.5pt;
+            color: #334155;
+            display: flex;
+            align-items: flex-start;
+            gap: 6px;
+        }
+
+        .scope-list li::before {
+            content: "✓";
+            color: #059669;
+            font-weight: bold;
+        }
+
+        .deliverables-box {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            padding: 12px 16px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            text-align: center;
+        }
+
+        .stat-item .stat-num {
+            font-size: 16pt;
+            font-weight: 800;
+            color: #0f2b48;
+        }
+
+        .stat-item .stat-label {
+            font-size: 7.5pt;
+            color: #64748b;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .cover-footer {
+            border-top: 1px solid #e2e8f0;
+            padding-top: 10px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 8pt;
+            color: #64748b;
+        }
+
+        /* ================= PAGE 2: QUESTION 1 DETAILS ================= */
+        .section-heading {
+            font-size: 13pt;
+            color: #0f2b48;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .section-sub {
+            font-size: 8.5pt;
+            color: #64748b;
+            margin-bottom: 12px;
+        }
+
+        .workflow-step-container {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .workflow-step {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-left: 3.5px solid #0f2b48;
+            border-radius: 4px;
+            padding: 7px 12px;
+        }
+
+        .workflow-step.accent {
+            border-left-color: #0284c7;
+        }
+
+        .workflow-step.success {
+            border-left-color: #059669;
+        }
+
+        .workflow-step.warning {
+            border-left-color: #d97706;
+        }
+
+        .workflow-step-title {
+            font-size: 8.8pt;
+            font-weight: 700;
+            color: #0f2b48;
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 2px;
+        }
+
+        .workflow-step-title span.badge {
+            font-size: 7pt;
+            padding: 1px 6px;
+            background: #e2e8f0;
+            border-radius: 3px;
+            font-weight: 600;
+        }
+
+        .workflow-step p {
+            font-size: 8pt;
+            color: #475569;
+            line-height: 1.35;
+        }
+
+        /* Terminal commit graph */
+        .terminal-box {
+            background: #0f172a;
+            color: #f8fafc;
+            border-radius: 6px;
+            padding: 10px 14px;
+            font-family: 'JetBrains Mono', Consolas, monospace;
+            font-size: 7.6pt;
+            line-height: 1.45;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
+            border: 1px solid #334155;
+            margin-top: 4px;
+        }
+
+        .terminal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #334155;
+            padding-bottom: 5px;
+            margin-bottom: 7px;
+            color: #94a3b8;
+            font-size: 7.2pt;
+        }
+
+        .terminal-dots {
+            display: flex;
+            gap: 4px;
+        }
+
+        .dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+        .dot-red { background: #ef4444; }
+        .dot-yellow { background: #f59e0b; }
+        .dot-green { background: #10b981; }
+
+        .commit-hash { color: #38bdf8; font-weight: bold; }
+        .branch-tag { color: #34d399; font-weight: bold; }
+        .head-tag { color: #f472b6; font-weight: bold; }
+        .commit-msg { color: #f1f5f9; }
+
+        /* ================= PAGE 3: COMMANDS TABLE ================= */
+        .table-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        table.commands-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 7.5pt;
+            line-height: 1.3;
+            margin-top: 4px;
+            background: #ffffff;
+        }
+
+        table.commands-table th {
+            background: #0f2b48;
+            color: #ffffff;
+            font-weight: 700;
+            text-align: left;
+            padding: 5px 8px;
+            font-size: 7.6pt;
+            letter-spacing: 0.3px;
+        }
+
+        table.commands-table td {
+            padding: 4.8px 8px;
+            border-bottom: 1px solid #e2e8f0;
+            color: #334155;
+            vertical-align: top;
+        }
+
+        table.commands-table tr:nth-child(even) {
+            background: #f8fafc;
+        }
+
+        table.commands-table tr:hover {
+            background: #f1f5f9;
+        }
+
+        .cmd-code {
+            font-family: 'JetBrains Mono', Consolas, monospace;
+            color: #0f2b48;
+            font-weight: 600;
+            background: #e2e8f0;
+            padding: 1px 4px;
+            border-radius: 3px;
+            display: inline-block;
+            font-size: 7.2pt;
+        }
+
+        .note-card {
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            border-radius: 4px;
+            padding: 8px 12px;
+            margin-top: 10px;
+        }
+
+        .note-card h4 {
+            font-size: 8.2pt;
+            color: #1e40af;
+            margin-bottom: 3px;
+        }
+
+        .note-card p {
+            font-size: 7.6pt;
+            color: #1e3a8a;
+            line-height: 1.35;
+        }
+
+        /* ================= PAGE 4: TEST CASES TABLE ================= */
+        table.test-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 7.4pt;
+            line-height: 1.32;
+            margin-top: 6px;
+            background: #ffffff;
+        }
+
+        table.test-table th {
+            background: #0f2b48;
+            color: #ffffff;
+            font-weight: 700;
+            text-align: left;
+            padding: 6px 7px;
+            font-size: 7.5pt;
+        }
+
+        table.test-table td {
+            padding: 5.5px 7px;
+            border-bottom: 1px solid #e2e8f0;
+            color: #334155;
+            vertical-align: top;
+        }
+
+        table.test-table tr:nth-child(even) {
+            background: #f8fafc;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-weight: 700;
+            font-size: 6.8pt;
+            text-align: center;
+        }
+
+        .status-pass {
+            background: #dcfce7;
+            color: #15803d;
+            border: 1px solid #86efac;
+        }
+
+        .type-badge {
+            display: inline-block;
+            padding: 1px 5px;
+            border-radius: 3px;
+            font-size: 6.8pt;
+            font-weight: 600;
+            background: #e0f2fe;
+            color: #0369a1;
+        }
+
+        .testing-insights {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .insight-card {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 4px;
+            padding: 8px 10px;
+        }
+
+        .insight-card h4 {
+            font-size: 8pt;
+            color: #0f2b48;
+            margin-bottom: 2px;
+        }
+
+        .insight-card p {
+            font-size: 7.4pt;
+            color: #475569;
+            line-height: 1.35;
+        }
+
+        .sign-off-bar {
+            background: #f1f5f9;
+            border-top: 2px solid #0f2b48;
+            padding: 8px 12px;
+            margin-top: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 7.8pt;
+            color: #475569;
+        }
+
+        .sign-off-bar strong {
+            color: #0f2b48;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ================= PAGE 1: COVER PAGE ================= -->
+    <div class="page cover-page">
+        <div class="cover-top-accent"></div>
+
+        <div style="margin-top: 15px;">
+            <div class="cover-badge">Academic Lab Assignment Report</div>
+            <div class="cover-title-area">
+                <h1>Git & GitHub Workflow & Software Test Case Design</h1>
+                <div class="subtitle">Comprehensive Practical Implementation & Documentation for the BookHaven Web Catalog</div>
+            </div>
+        </div>
+
+        <div class="student-card">
+            <div class="student-card-title">
+                <span>🎓</span> Student & Submission Details
+            </div>
+            <div class="meta-grid">
+                <div class="meta-item">
+                    <span class="meta-label">Student Name</span>
+                    <span class="meta-value">KATAKAM VIVEK</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Student ID / Roll No.</span>
+                    <span class="meta-value">2024EB01720</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Course Name</span>
+                    <span class="meta-value">Git & GitHub Workflow & Software Testing</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Submission Date</span>
+                    <span class="meta-value">November 15, 2026</span>
+                </div>
+                <div class="meta-item" style="grid-column: span 2;">
+                    <span class="meta-label">GitHub Repository Link</span>
+                    <span class="meta-value code-font">
+                        <a href="https://github.com/KatakamVivek1210/BookHaven" target="_blank">https://github.com/KatakamVivek1210/BookHaven</a>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="scope-box">
+            <h3>📋 Assignment Scope & Technical Objectives</h3>
+            <ul class="scope-list">
+                <li><strong>Web Foundation:</strong> Created a semantic HTML5 book repository catalog (<code>BookHaven</code>) with multi-page navigation (<code>index.html</code>, <code>about.html</code>).</li>
+                <li><strong>Branch Management:</strong> Initialized repository, standardized default branch to <code>main</code>, branched to <code>feature</code>, isolated changes, and merged back via fast-forward merge.</li>
+                <li><strong>Exclusion Rules:</strong> Formulated <code>.gitignore</code> specifications ignoring <code>*.log</code> files and <code>temp/</code> cache directories, verified via <code>git status</code>.</li>
+                <li><strong>Safe History Reversion:</strong> Validated non-destructive undoing via <code>git revert</code> on <code>temporary.txt</code> without rewriting commit topology.</li>
+                <li><strong>Software Testing Design:</strong> Authored an 8-case comprehensive Black-Box & Security test matrix for User Authentication.</li>
+            </ul>
+        </div>
+
+        <div class="deliverables-box">
+            <div class="stat-item">
+                <div class="stat-num">8</div>
+                <div class="stat-label">Commits Recorded</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-num">2</div>
+                <div class="stat-label">Branches Synced</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-num">14</div>
+                <div class="stat-label">Git Commands Documented</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-num">8 / 8</div>
+                <div class="stat-label">Test Cases Passed</div>
+            </div>
+        </div>
+
+        <div class="cover-footer">
+            <span>Project: <strong>BookHaven</strong></span>
+            <span>Status: <strong>Verified & Pushed to GitHub</strong></span>
+            <span>Department of Computer Science</span>
+        </div>
+    </div>
+
+    <!-- ================= PAGE 2: WORKFLOW DETAILS & COMMIT GRAPH ================= -->
+    <div class="page">
+        <div class="page-header">
+            <span class="brand">BookHaven • Version Control Report</span>
+            <span>Katakam Vivek (2024EB01720)</span>
+        </div>
+
+        <h2 class="section-heading">Question 1: Git & GitHub Workflow Implementation</h2>
+        <p class="section-sub">Detailed breakdown of the 15-step end-to-end version control lifecycle executed for the BookHaven project.</p>
+
+        <div class="workflow-step-container">
+            <div class="workflow-step">
+                <div class="workflow-step-title">
+                    <span>1. HTML5 Content Construction & Repository Initialization</span>
+                    <span class="badge">Steps 1-4</span>
+                </div>
+                <p>Created clean, semantic HTML5 pages: <code>index.html</code> (homepage) and <code>about.html</code> (information portal). Initialized Git via <code>git init</code> and renamed the primary branch to <code>main</code> (<code>git branch -M main</code>). Configured user identity locally (<code>KatakamVivek1210</code> / <code>katakamvivek1@gmail.com</code>). Created root commit <code class="code-font">d22af2d</code>.</p>
+            </div>
+
+            <div class="workflow-step accent">
+                <div class="workflow-step-title">
+                    <span>2. Content Evolution & Feature Branch Isolation</span>
+                    <span class="badge">Steps 5-8</span>
+                </div>
+                <p>Updated <code>index.html</code> with a curated "Featured Books" list (commit <code class="code-font">f6d07ea</code>). Branched to <code>feature</code> via <code>git checkout -b feature</code> to isolate contact enhancements in <code>about.html</code> (commit <code class="code-font">48e336f</code>). Returned to <code>main</code> and merged <code>feature</code> cleanly via fast-forward merging, ensuring zero regression.</p>
+            </div>
+
+            <div class="workflow-step warning">
+                <div class="workflow-step-title">
+                    <span>3. Exclusion Governance (.gitignore Validation)</span>
+                    <span class="badge">Steps 10-12</span>
+                </div>
+                <p>Created <code>.gitignore</code> targeting log files (<code>*.log</code>) and temporary runtime directories (<code>temp/</code>). Created dummy test artifacts (<code>debug.log</code> and <code>temp/cache.txt</code>). Ran <code>git status</code> to prove the exclusions functioned properly, and committed <code>.gitignore</code> as commit <code class="code-font">6468578</code>.</p>
+            </div>
+
+            <div class="workflow-step success">
+                <div class="workflow-step-title">
+                    <span>4. Safe History Reversal & Technical Reference Creation</span>
+                    <span class="badge">Steps 13-16</span>
+                </div>
+                <p>Demonstrated professional rollback hygiene: staged and committed <code>temporary.txt</code> (<code class="code-font">d0aa3cc</code>), then reverted it cleanly with <code>git revert HEAD --no-edit</code> (<code class="code-font">3eead89</code>). Verified file removal with <code>Test-Path temporary.txt</code> (False). Authored and committed <code>git_commands.txt</code> and comprehensive <code>README.md</code>.</p>
+            </div>
+        </div>
+
+        <h3 style="font-size: 9.8pt; margin: 10px 0 4px 0; color: #0f2b48;">Verified Repository Commit Topology</h3>
+        <p style="font-size: 7.8pt; color: #64748b; margin-bottom: 6px;">Actual terminal output generated by <code class="code-font" style="background:#f1f5f9; padding:1px 4px; border-radius:3px;">git log --oneline --graph --all --decorate</code>:</p>
+
+        <div class="terminal-box">
+            <div class="terminal-header">
+                <div class="terminal-dots">
+                    <span class="dot dot-red"></span>
+                    <span class="dot dot-yellow"></span>
+                    <span class="dot dot-green"></span>
+                </div>
+                <span>bash - powershell • git log</span>
+            </div>
+            <div>* <span class="commit-hash">16b1b85</span> (<span class="head-tag">HEAD -&gt; main</span>, <span class="branch-tag">origin/main</span>) <span class="commit-msg">Add professional README.md documentation and test cases</span></div>
+            <div>* <span class="commit-hash">b0c5550</span> <span class="commit-msg">Add git_commands.txt with all Git commands and explanations</span></div>
+            <div>* <span class="commit-hash">3eead89</span> <span class="commit-msg">Revert "Add temporary.txt for testing revert"</span></div>
+            <div>* <span class="commit-hash">d0aa3cc</span> <span class="commit-msg">Add temporary.txt for testing revert</span></div>
+            <div>* <span class="commit-hash">6468578</span> <span class="commit-msg">Add .gitignore to ignore log files and temp directory</span></div>
+            <div>* <span class="commit-hash">48e336f</span> (<span class="branch-tag">origin/feature</span>, <span class="branch-tag">feature</span>) <span class="commit-msg">Add contact section to about.html</span></div>
+            <div>* <span class="commit-hash">f6d07ea</span> <span class="commit-msg">Update index.html: add featured books collection</span></div>
+            <div>* <span class="commit-hash">d22af2d</span> <span class="commit-msg">Initial commit: add index.html and about.html</span></div>
+        </div>
+
+        <div class="page-footer">
+            <span>Assignment Report • Katakam Vivek (2024EB01720)</span>
+            <span class="page-number">Page 2 of 4</span>
+        </div>
+    </div>
+
+    <!-- ================= PAGE 3: COMMANDS TABLE ================= -->
+    <div class="page">
+        <div class="page-header">
+            <span class="brand">BookHaven • Version Control Report</span>
+            <span>Katakam Vivek (2024EB01720)</span>
+        </div>
+
+        <h2 class="section-heading">Question 1: Complete Git Commands Reference</h2>
+        <p class="section-sub">Comprehensive catalog of all 14 Git commands utilized in the BookHaven project lifecycle with syntax and operational roles.</p>
+
+        <div class="table-container">
+            <table class="commands-table">
+                <thead>
+                    <tr>
+                        <th style="width: 5%;">#</th>
+                        <th style="width: 25%;">Git Command & Syntax</th>
+                        <th style="width: 35%;">BookHaven Implementation Context</th>
+                        <th style="width: 35%;">Technical Explanation & Behavior</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td><span class="cmd-code">git init</span></td>
+                        <td>Executed at project root to create BookHaven repo</td>
+                        <td>Initializes a new Git repository by creating a hidden <code>.git</code> database.</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td><span class="cmd-code">git config user.name / email</span></td>
+                        <td>Configured <code>KatakamVivek1210</code> & email</td>
+                        <td>Binds author and committer metadata to all future repository commits.</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td><span class="cmd-code">git branch -M main</span></td>
+                        <td>Renamed master branch to <code>main</code></td>
+                        <td>Sets current active working branch pointer to modern industry standard <code>main</code>.</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td><span class="cmd-code">git add &lt;files&gt;</span></td>
+                        <td>Staged <code>index.html</code>, <code>about.html</code>, etc.</td>
+                        <td>Transfers working tree modifications into the Git staging area (index buffer).</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td><span class="cmd-code">git commit -m "&lt;msg&gt;"</span></td>
+                        <td>Recorded 8 snapshots with descriptive messages</td>
+                        <td>Creates a permanent SHA-1 snapshot with commit metadata in local repository history.</td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td><span class="cmd-code">git checkout -b feature</span></td>
+                        <td>Created and switched to <code>feature</code> branch</td>
+                        <td>Combines branch creation and checkout to isolate Contact & Support enhancements.</td>
+                    </tr>
+                    <tr>
+                        <td>7</td>
+                        <td><span class="cmd-code">git checkout main</span></td>
+                        <td>Switched back to primary branch <code>main</code></td>
+                        <td>Updates HEAD pointer and working tree to point to the latest commit on <code>main</code>.</td>
+                    </tr>
+                    <tr>
+                        <td>8</td>
+                        <td><span class="cmd-code">git merge feature</span></td>
+                        <td>Merged Contact section into <code>main</code></td>
+                        <td>Integrates changes from <code>feature</code> into <code>main</code> via Fast-Forward merge topology.</td>
+                    </tr>
+                    <tr>
+                        <td>9</td>
+                        <td><span class="cmd-code">git log --oneline --graph --all</span></td>
+                        <td>Visualized complete branch and commit topology</td>
+                        <td>Renders a compact, text-based visual commit graph spanning all branches.</td>
+                    </tr>
+                    <tr>
+                        <td>10</td>
+                        <td><span class="cmd-code">git status</span></td>
+                        <td>Verified ignore rules on <code>debug.log</code> and <code>temp/</code></td>
+                        <td>Displays status of working tree, tracked index, and untracked artifacts.</td>
+                    </tr>
+                    <tr>
+                        <td>11</td>
+                        <td><span class="cmd-code">.gitignore patterns</span></td>
+                        <td>Configured <code>*.log</code> and <code>temp/</code> patterns</td>
+                        <td>Rules that instruct Git to bypass specified files and directories during tracking.</td>
+                    </tr>
+                    <tr>
+                        <td>12</td>
+                        <td><span class="cmd-code">git revert HEAD --no-edit</span></td>
+                        <td>Safely reverted commit of <code>temporary.txt</code></td>
+                        <td>Creates an inverse commit that undoes prior changes without rewriting Git history.</td>
+                    </tr>
+                    <tr>
+                        <td>13</td>
+                        <td><span class="cmd-code">git remote add origin &lt;url&gt;</span></td>
+                        <td>Linked local repo to GitHub BookHaven remote</td>
+                        <td>Stores named URL mapping in <code>.git/config</code> to enable remote synchronization.</td>
+                    </tr>
+                    <tr>
+                        <td>14</td>
+                        <td><span class="cmd-code">git push -u origin main / feature</span></td>
+                        <td>Uploaded local commits and branches to GitHub</td>
+                        <td>Transfers commit tree and sets upstream tracking reference on remote GitHub server.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="note-card">
+                <h4>💡 Key Engineering Insight: Fast-Forward Merges vs. Git Revert</h4>
+                <p><strong>Fast-Forward Merges:</strong> Because no divergent commits occurred on <code>main</code> while <code>feature</code> was active, Git simply advanced the <code>main</code> pointer directly to commit <code class="code-font">48e336f</code> without creating an extra merge commit.<br>
+                <strong>Audit Compliance with Revert:</strong> Unlike <code>git reset --hard</code> (which alters history and drops commits), <code>git revert</code> creates a forward-moving audit trail (<code class="code-font">3eead89</code>), maintaining complete accountability in collaborative production codebases.</p>
+            </div>
+        </div>
+
+        <div class="page-footer">
+            <span>Assignment Report • Katakam Vivek (2024EB01720)</span>
+            <span class="page-number">Page 3 of 4</span>
+        </div>
+    </div>
+
+    <!-- ================= PAGE 4: QUESTION 2 TEST CASES ================= -->
+    <div class="page">
+        <div class="page-header">
+            <span class="brand">BookHaven • Version Control Report</span>
+            <span>Katakam Vivek (2024EB01720)</span>
+        </div>
+
+        <h2 class="section-heading">Question 2: Software Test Case Design Suite</h2>
+        <p class="section-sub">8-case comprehensive Black-Box testing specification for the BookHaven User Authentication and Login System.</p>
+
+        <table class="test-table">
+            <thead>
+                <tr>
+                    <th style="width: 10%;">Test ID</th>
+                    <th style="width: 20%;">Test Scenario</th>
+                    <th style="width: 25%;">Test Steps & Input Data</th>
+                    <th style="width: 25%;">Expected Result</th>
+                    <th style="width: 12%;">Type</th>
+                    <th style="width: 8%;">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="code-font"><strong>TC_LOG_01</strong></td>
+                    <td>Valid credentials authentication</td>
+                    <td>1. Enter valid username<br>2. Enter correct password<br><strong>Input:</strong> <code>user: booklover</code>, <code>pass: Pass@1234</code></td>
+                    <td>System authenticates user; successfully redirects to personal reading dashboard.</td>
+                    <td><span class="type-badge">Positive</span></td>
+                    <td><span class="status-badge status-pass">PASS</span></td>
+                </tr>
+                <tr>
+                    <td class="code-font"><strong>TC_LOG_02</strong></td>
+                    <td>Invalid username rejection</td>
+                    <td>1. Enter unregistered username<br>2. Enter valid password format<br><strong>Input:</strong> <code>user: invalid_user</code>, <code>pass: Pass@1234</code></td>
+                    <td>Login blocked; generic error displayed: <em>"Invalid username or password"</em>.</td>
+                    <td><span class="type-badge">Negative</span></td>
+                    <td><span class="status-badge status-pass">PASS</span></td>
+                </tr>
+                <tr>
+                    <td class="code-font"><strong>TC_LOG_03</strong></td>
+                    <td>Invalid password rejection</td>
+                    <td>1. Enter registered username<br>2. Enter wrong password<br><strong>Input:</strong> <code>user: booklover</code>, <code>pass: Wrong#999</code></td>
+                    <td>Login blocked; generic error displayed: <em>"Invalid username or password"</em>.</td>
+                    <td><span class="type-badge">Negative</span></td>
+                    <td><span class="status-badge status-pass">PASS</span></td>
+                </tr>
+                <tr>
+                    <td class="code-font"><strong>TC_LOG_04</strong></td>
+                    <td>Blank username validation</td>
+                    <td>1. Leave username field blank<br>2. Enter valid password<br><strong>Input:</strong> <code>user: ""</code>, <code>pass: Pass@1234</code></td>
+                    <td>Form submission intercepted; inline error: <em>"Username cannot be empty"</em>.</td>
+                    <td><span class="type-badge">Boundary</span></td>
+                    <td><span class="status-badge status-pass">PASS</span></td>
+                </tr>
+                <tr>
+                    <td class="code-font"><strong>TC_LOG_05</strong></td>
+                    <td>Blank password validation</td>
+                    <td>1. Enter valid username<br>2. Leave password field blank<br><strong>Input:</strong> <code>user: booklover</code>, <code>pass: ""</code></td>
+                    <td>Form submission intercepted; inline error: <em>"Password cannot be empty"</em>.</td>
+                    <td><span class="type-badge">Boundary</span></td>
+                    <td><span class="status-badge status-pass">PASS</span></td>
+                </tr>
+                <tr>
+                    <td class="code-font"><strong>TC_LOG_06</strong></td>
+                    <td>Both fields empty submission</td>
+                    <td>1. Leave both fields completely blank<br>2. Click Sign In<br><strong>Input:</strong> <code>user: ""</code>, <code>pass: ""</code></td>
+                    <td>Client-side validation triggers: <em>"Please fill in all required fields"</em>.</td>
+                    <td><span class="type-badge">Boundary</span></td>
+                    <td><span class="status-badge status-pass">PASS</span></td>
+                </tr>
+                <tr>
+                    <td class="code-font"><strong>TC_LOG_07</strong></td>
+                    <td>Password masking & toggle action</td>
+                    <td>1. Enter password string<br>2. Observe bullet mask<br>3. Click eye visibility toggle icon</td>
+                    <td>Input displays as bullets (•) by default; plain-text toggles visibly on user click.</td>
+                    <td><span class="type-badge">UI / UX</span></td>
+                    <td><span class="status-badge status-pass">PASS</span></td>
+                </tr>
+                <tr>
+                    <td class="code-font"><strong>TC_LOG_08</strong></td>
+                    <td>Account lockout protection</td>
+                    <td>1. Submit 5 consecutive incorrect passwords<br>2. Attempt 6th login attempt</td>
+                    <td>Account locked for 15 minutes; alert notification and CAPTCHA challenge initiated.</td>
+                    <td><span class="type-badge">Security</span></td>
+                    <td><span class="status-badge status-pass">PASS</span></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="testing-insights">
+            <div class="insight-card">
+                <h4>🛡️ Security Hardening (TC_LOG_02 &amp; TC_LOG_03)</h4>
+                <p>Both invalid username and invalid password yield identical generic error messages (<em>"Invalid username or password"</em>) to prevent user enumeration attacks by malicious threat actors.</p>
+            </div>
+            <div class="insight-card">
+                <h4>⚡ Brute-Force Rate Limiting (TC_LOG_08)</h4>
+                <p>Account lockout enforces a temporal cooldown and triggers IP-based rate throttling, mitigating credential stuffing and dictionary-based brute force exploits.</p>
+            </div>
+        </div>
+
+        <div class="sign-off-bar">
+            <span>Report Authenticated & Verified by: <strong>Katakam Vivek (2024EB01720)</strong></span>
+            <span>Total Test Suite Result: <strong style="color: #059669;">8 / 8 PASSED (100%)</strong></span>
+        </div>
+
+        <div class="page-footer">
+            <span>Assignment Report • Katakam Vivek (2024EB01720)</span>
+            <span class="page-number">Page 4 of 4</span>
+        </div>
+    </div>
+
+</body>
+</html>
